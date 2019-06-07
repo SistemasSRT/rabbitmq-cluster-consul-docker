@@ -4,4 +4,8 @@ LABEL description="RabbitMQ Autocluster" \
 
 COPY rabbitmq.conf /etc/rabbitmq
 
-RUN rabbitmq-plugins --offline enable rabbitmq_peer_discovery_consul
+COPY ./get_exporter.sh /get_exporter.sh
+
+RUN ./get_exporter.sh
+
+RUN rabbitmq-plugins --offline enable rabbitmq_peer_discovery_consul prometheus_rabbitmq_exporter
